@@ -40,7 +40,7 @@ else:
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'wordup.onrender.com']
 
-CSRF_TRUST_ORIGINS = ['https://wordup.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://wordup.onrender.com']
 
 INTERNAL_IPS = (
     '127.0.0.1',
