@@ -38,7 +38,9 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'wordup.onrender.com']
+
+CRSF_TRUST_ORIGINS = ['https://wordup.onrender.com']
 
 INTERNAL_IPS = (
     '127.0.0.1',
