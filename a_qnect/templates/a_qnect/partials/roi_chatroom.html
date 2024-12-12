@@ -1,0 +1,20 @@
+<div x-data="{ modal_open: false }">
+    <a @click="modal_open = true" class="flex justify-end text-gray-600 font-semibold hover:text-red-600 cursor-pointer">
+        Rời nhóm
+    </a>
+    <div x-show="modal_open" x-cloak>
+        <div class="fixed inset-0 bg-gray-800 bg-opacity-80 z-50"></div>
+        <div class="fixed inset-0 z-50 flex min-h-full justify-center items-center p-6">
+            <div @click.away="modal_open = false" class="rounded-lg bg-white text-left shadow-xl">
+                <div class="m-4">
+                    <h2>Bạn muốn rời khỏi đoạn chat này?</h2>
+                </div>
+                <form method="POST" action="{% url 'roi-chatroom' chat_group.group_name %}" class="text-center">
+                    {% csrf_token %}
+                    <button type="submit" class="button-red mt-4 mb-4">Vâng, tôi muốn rời</button>
+                    <a class="button button-gray ml-1 cursor-pointer" @click="modal_open = false">Hủy</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

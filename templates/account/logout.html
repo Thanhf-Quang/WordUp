@@ -1,0 +1,31 @@
+{% extends "account/base_manage.html" %}
+{% load allauth i18n %}
+{% block head_title %}
+    {% trans "Đăng Xuất" %}
+{% endblock head_title %}
+{% block content %}
+    {% element h1 %}
+    <div style="text-align: center;">
+        {% trans "Đăng Xuất" %}
+    </div>
+    {% endelement %}
+    {% element p %}
+    <div style="text-align: center; font-size: 20px;">
+        {% trans 'Bạn có chắc chắc muốn đăng xuất không?' %}
+    </div>
+    {% endelement %}
+    {% url 'account_logout' as action_url %}
+    {% element form method="post" action=action_url no_visible_fields=True %}
+        {% slot body %}
+            {% csrf_token %}
+            {{ redirect_field }}
+        {% endslot %}
+        {% slot actions %}
+        <div style="text-align: center;">
+            {% element button type="submit" %}
+                {% trans 'Đăng Xuất' %}
+            {% endelement %}
+        </div>
+        {% endslot %}
+    {% endelement %}
+{% endblock content %}

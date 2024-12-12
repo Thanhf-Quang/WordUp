@@ -1,0 +1,15 @@
+{% extends 'layouts/box.html' %}
+
+{% block content %}
+
+<h2>Bạn có chắc là muốn xóa nhóm này?</h2>
+
+<h2>"{{ chat_group.groupchat_name }}"</h2>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="button-red mt-4">Vâng, tôi muốn xóa</button>
+    <a href="{{ request.META.HTTP_REFERER }}" class="button button-gray ml-1">Hủy</a>
+</form>
+
+{% endblock %}

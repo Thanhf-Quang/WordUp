@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordUp - Kết nối mọi người</title>
+    <link rel="icon" type="image/x-icon" href="/static/images/wordup-icon.png">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.13"></script>
+    {% if debug %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% else %}
+    <link rel="stylesheet" href="{% static 'css/style.min.css' %}">
+    {% endif %}
+    <style>
+        @media (max-width: 768px) {
+            .navbarmobile {
+                position: fixed;
+                /* Đặt cố định để luôn hiển thị ở trên */
+                top: 0;
+                left: 0;
+                width: 100vw;
+                /* Chiều rộng bằng toàn màn hình */
+                height: 100vh;
+                /* Chiều cao bằng toàn màn hình */
+                background: linear-gradient(to right, #3D4E81, #5753C9);
+                overflow-y: auto;
+                z-index: -1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .md-flex {
+                display: flex;
+            }
+
+            .md-hidden {
+                display: none;
+            }
+
+            .md-block {
+                display: block !important;
+            }
+
+            .md-h-auto {
+                height: auto;
+            }
+
+            .md-w-auto {
+                width: auto;
+            }
+
+            .md-mt-0 {
+                margin-top: 0;
+            }
+
+            .md-relative {
+                position: relative;
+            }
+
+            .md-flex-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .md-gap-0 {
+                gap: 0;
+            }
+
+            .md-translate-y-0 {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+
+<body class="{% block class %}{% endblock %}">
+
+    {% include 'includes/messages.html' %}
+
+    {% include 'includes/header.html' %}
+
+    {% block layout %}
+    {% endblock %}
+
+    {% block javascript %}{% endblock %}
+
+</body>
+
+</html>

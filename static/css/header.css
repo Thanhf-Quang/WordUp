@@ -1,0 +1,36 @@
+/* header.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header {
+    @apply md:flex items-center justify-between bg-gradient-to-r from-[#3D4E81] to-[#5753C9] h-20 text-white sticky top-0 z-40;
+}
+
+.header a {
+    @apply flex items-center gap-2;
+}
+
+.header img {
+    @apply h-6;
+}
+
+.header .mobileicon {
+    @apply md:hidden;
+}
+
+.header .mobileicon a {
+    @apply h-12 px-2 flex items-center justify-center cursor-pointer hover:bg-transparent rounded-lg;
+}
+
+.header .mobileicon img {
+    @apply h-8 w-8 rounded-full object-cover mr-2;
+}
+
+.header .nav {
+    @apply md:!block h-screen w-screen md:h-auto md:w-auto -mt-20 md:mt-0 absolute md:relative z-[-1];
+}
+
+.header .nav ul {
+    @apply flex flex-col items-center md:flex-row gap-2 md:gap-0 justify-center h-full -translate-y-20 md:translate-y-0 z-20 font-bold;
+}

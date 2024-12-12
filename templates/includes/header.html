@@ -1,0 +1,91 @@
+
+<header x-data="{ mobilenavOpen: false }" class="md-flex items-center justify-between px-8 bg-gradient-to-r from-[#3D4E81] to-[#5753C9]  h-20 text-white sticky top-0 z-40">
+    <div class="flex items-center justify-between h-20">
+        <a class="flex items-center gap-2" href="/">
+            <img class="h-6" src="/static/images/wordup.png" alt="Logo"/>
+            <span class="text-lg font-bold">WordUp</span>
+        </a>
+        <mobileicon class="md-hidden">
+                
+            <a @click="mobilenavOpen = !mobilenavOpen" class="h-12 px-2 flex items-center justify-center cursor-pointer hover:bg-transparent rounded-lg">
+                {% if request.user.is_authenticated %}
+                    <img class="h-8 w-8 rounded-full object-cover mr-2" src="{{ user.profile.avatar }}"/>
+                {% endif %}
+                <img x-show="!mobilenavOpen" class="w-6 h-6 select-none" src="https://img.icons8.com/small/64/ffffff/menu.png"/> 
+                <img x-show="mobilenavOpen" x-cloak class="w-6 h-6 select-none" src="https://img.icons8.com/small/64/ffffff/delete-sign.png"/>
+            </a>
+        </mobileicon>
+    </div>
+    <nav x-show="mobilenavOpen" x-cloak class="md-block h-screen w-screen md-h-auto md-w-auto -mt-20 md-mt-0 absolute md-relative z-[-1] navbarmobile"
+        x-transition:enter="duration-300 ease-out"
+        x-transition:enter-start="opacity-0 -translate-y-96"
+        x-transition:enter-end="opacity-100 translate-y-0">
+            <ul class="flex flex-col items-center navitems md-flex-row gap-2 md-gap-0 justify-center h-full -translate-y-20 md-translate-y-0 z-20 font-bold">
+                
+            {% if request.user.is_authenticated %}
+            <!-- <li><a href="/">Trang Chủ</a></li> -->
+
+            <li x-data="{ dropdownOpen: false }" class="relative">
+                <a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
+                    Trò chuyện
+                    <img x-bind:class="dropdownOpen && 'rotate-180 duration-300'" class="w-4" src="https://img.icons8.com/small/32/777777/expand-arrow.png"/>
+                </a>
+                <div x-show="dropdownOpen" x-cloak class="absolute right-0 bg-white text-black shadow rounded-lg w-40 p-2 z-20"
+                x-transition:enter="duration-300 ease-out"
+                x-transition:enter-start="opacity-0 -translate-y-5 scale-90"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                >
+                    <ul class="hoverlist [&>li>a]:justify-end">
+                        <li><a href="{% url 'home' %}">Phòng chờ</a></li>
+                        <!-- tên nhóm -->
+                        {% for chatroom in user.chat_groups.all %}
+                            {% if chatroom.groupchat_name %}
+                                <li>
+                                    <a class="leading-5 text-right" href="{% url 'chatroom' chatroom.group_name %}">
+                                    {{ chatroom.groupchat_name|slice:":30" }}
+                                    </a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}                         
+                        <!-- tên người dùng -->
+                        {% for chatroom in user.chat_groups.all %}
+                            {% if chatroom.is_private %}
+                                {% for member in chatroom.members.all %}
+                                    {% if member != user %}
+                                    <li><a href="{% url 'chatroom' chatroom.group_name %}">{{ member.profile.name }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+
+            <li x-data="{ dropdownOpen: false }" class="relative">
+                <a @click="dropdownOpen = !dropdownOpen" @click.away="dropdownOpen = false" class="cursor-pointer select-none">
+                    <img class="h-8 w-8 rounded-full object-cover" src="{{ user.profile.avatar }}"/>
+                    {{ user.profile.name }}
+                    <img x-bind:class="dropdownOpen && 'rotate-180 duration-300'" class="w-4" src="https://img.icons8.com/small/32/777777/expand-arrow.png"/>
+                </a>
+                <div x-show="dropdownOpen" x-cloak class="absolute right-0 bg-white text-black shadow rounded-lg w-40 p-2 z-20"
+                x-transition:enter="duration-300 ease-out"
+                x-transition:enter-start="opacity-0 -translate-y-5 scale-90"
+                x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                >
+                    <ul class="hoverlist [&>li>a]:justify-end">
+                        <li><a href="{% url 'profile' %}">Hồ sơ của tôi</a></li>
+                        <li><a href="{% url 'profile-edit' %}">Thiết lập hồ sơ</a></li>
+                        <li><a href="{% url 'new-groupchat' %}">Tạo nhóm</a></li>
+                        <li><a href="{% url 'profile-settings' %}">Cài đặt</a></li>
+                        <li><a href="{% url 'account_logout' %}">Đăng xuất</a></li>
+                    </ul>
+                </div>
+            </li>
+            
+            {% else %}
+            <li><a href="{% url 'account_login' %}">Đăng Nhập</a></li>
+            <li><a href="{% url 'account_signup' %}?next={% url 'profile-onboarding' %}">Đăng Ký</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>

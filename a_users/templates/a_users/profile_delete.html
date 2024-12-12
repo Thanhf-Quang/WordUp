@@ -1,0 +1,14 @@
+{% extends 'layouts/box.html' %}
+
+{% block content %}
+
+<h1>Xóa tài khoản</h1>
+<p>Bạn có chắc muốn xóa tài khoản không?</p>
+
+<form method='POST'>
+    {% csrf_token %}
+    <button type="submit" class="button-red mt-6">Vâng, tôi muốn xóa tài khoản</button>
+    <a class="button button-gray ml-1" href="{{ request.META.HTTP_REFERER }}">Hủy</a>
+</form>
+
+{% endblock %}
